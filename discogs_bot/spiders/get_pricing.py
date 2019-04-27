@@ -3,9 +3,22 @@ import scrapy
 
 class DiscogsForSaleReleaseSpider(scrapy.Spider):
     name = "discogs-forsale-release"
-    start_urls = [
-        'https://www.discogs.com/sell/release/4573810',
-    ]
+    def __init__(self, *args, **kwargs):
+        # Create URLs from ids
+        print(args)
+        print(kwargs)
+        ids = kwargs.pop('ids', "") 
+        master_ids = kwargs.pop('master_ids', "") 
+        urls = []
+        master_urls = []
+        if ids:
+            for i in ids.split(" "):
+                urls.append(f"https://www.discogs.com/sell/release/{i}?ev=rb")
+        if master_ids:
+            for m in master_ids.split(" "):
+                master_urls.append(f"https://www.discogs.com/sell/list?master_id={m}&ev=mb")
+        self.start_urls = urls + master_urls
+        super().__init__(self, *args, **kwargs)
 
     def parse(self, response):
         # Skip header
