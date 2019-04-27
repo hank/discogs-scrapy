@@ -5,9 +5,23 @@
 # See documentation in:
 # https://doc.scrapy.org/en/latest/topics/items.html
 
-import scrapy
+from scrapy.item import Item, Field
 
+class DiscogsRelease(Item):
+    release_id = Field()
+    low = Field()
+    median = Field()
+    high = Field()
 
-class DiscogsBotItem(scrapy.Item):
-    # TODO Create Item
-    pass
+class DiscogsListing(Item):
+    link = Field()
+    title = Field()
+    condition = Field()
+    format = Field()
+    sleeve_condition = Field()
+    price = Field()
+    shipsfrom = Field()
+    seller_rating = Field()
+    num_seller_ratings = Field()
+    item_description = Field()
+    release_id = Field()
